@@ -7,11 +7,12 @@
 
 # Icon must end with two \r
 Icon
-media
-
+media/cv.pdf
+media/job_description.txt
+.venv
 # Thumbnails
 ._*
-
+../.idea/
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes

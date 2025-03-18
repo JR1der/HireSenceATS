@@ -5,6 +5,9 @@ from typing import List
 from pydantic import BaseModel
 import pymupdf
 import re
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def extract_text_from_pdf(filename):
@@ -58,53 +61,67 @@ class ATSAnalysis(BaseModel):
 
 
 def get_ats_score(job_description, resume_text):
-    sys_instruct = """
-    You are an AI specializing in evaluating resumes against job descriptions with a high level of accuracy. 
-    Your task is to analyze the resume and job description carefully and return the following structured information in JSON format:
+    prompt = """
+        You are an AI specializing in evaluating resumes against job descriptions with high accuracy.  
+        Your task is to analyze the resume and job description carefully and return the following structured information in JSON format.  
+        Evaluate resumes strictly and ensure that the score accurately reflects the match.  
 
-    1. **Matching Percentage (`ats_score`)**: A numerical percentage (0-100) representing how well the resume matches the job description.
-       - This should be based on the overlap of skills, experience, education, and job-specific keywords.
-       - Weigh technical skills, job title similarity, required certifications, and relevant experience higher than generic terms.
+        **Handling missing or meaningless input:**  
+        - If the resume text is missing, empty, or consists of random words/sentences without professional relevance, return:
+          - `"ats_score": 0`
+          - `"cv_skills": []`
+          - `"required_skills": []`
+          - `"improvements": ["Please provide a valid resume to analyze."]`
+        - If the job description is missing or empty, return:
+          - `"ats_score": 0`
+          - `"cv_skills": []`
+          - `"required_skills": []`
+          - `"improvements": ["Please provide a job description to compare with the resume."]`
 
-    2. **Detected Skills (`cv_skills`)**: A list of specific skills extracted from the resume.
-       - Consider both hard and soft skills, ensuring they are relevant to the job.
-       - Extract tools, technologies, methodologies, and certifications explicitly mentioned.
+        **Detecting meaningless content:**  
+        - If the resume contains only generic, unrelated, or incoherent text (e.g., "lorem ipsum", "random data", or a list of common words without structure), treat it as meaningless and return a score of 0.
+        - If the resume lacks relevant job experience, skills, or industry-related terms, significantly lower the score.
+        - If job title and experience levels are vastly mismatched (e.g., an entry-level resume for a senior-level job), significantly lower the score.
 
-    3. **Required Skills (`required_skills`)**: A list of skills explicitly mentioned in the job description as necessary.
-       - Include both technical and soft skills.
-       - If skills are indirectly mentioned (e.g., "experience with modern frameworks"), infer what they might be.
+        1. **Matching Percentage (`ats_score`)**: A numerical percentage (0-100) representing how well the resume matches the job description.
+           - This should be based on the overlap of skills, experience, education, and job-specific keywords.
+           - Prioritize technical skills, job title similarity, required certifications, and relevant experience.
+           - If a junior-level resume is compared to a senior-level job description, significantly lower the score.
+           - Do not overestimate matches based on generic terms.
 
-    4. **Suggested Improvements (`improvements`)**: Actionable suggestions to improve the resume for a better match.
-       - List missing skills or qualifications from the job description.
-       - Suggest better wording or formatting if necessary.
-       - Highlight weak areas such as missing certifications, unclear job titles, or lack of keywords.
+        2. **Detected Skills (`cv_skills`)**: A list of specific skills extracted from the resume.
+           - Identify both hard and soft skills that are relevant to the job.
+           - Extract tools, technologies, methodologies, and certifications explicitly mentioned.
 
-    Return the response in valid JSON format following this schema:
-    {
-        "ats_score": int, 
-        "cv_skills": list[str], 
-        "required_skills": list[str], 
-        "improvements": list[str]
-    }
-    
-    Ensure that your evaluation prioritizes job relevance and industry standards.
+        3. **Required Skills (`required_skills`)**: A list of skills explicitly mentioned in the job description as necessary.
+           - Include both technical and soft skills.
+           - If skills are indirectly mentioned (e.g., "experience with modern frameworks"), infer relevant technologies.
+
+        4. **Suggested Improvements (`improvements`)**: Actionable suggestions to improve the resume for a better match.
+           - List missing skills or qualifications required by the job description.
+           - Suggest better wording or formatting if necessary.
+           - Highlight weak areas such as missing certifications, unclear job titles, or lack of relevant keywords.
+
+        Return the response in **valid JSON format** following this schema:
+        {
+            "ats_score": int, 
+            "cv_skills": list[str], 
+            "required_skills": list[str], 
+            "improvements": list[str]
+        }
+
+        Ensure that your evaluation prioritizes job relevance and industry standards.
     """
-    prompt = f"""
+    prompt += f"""
     **CV Text:**
     {resume_text}
 
     **Job Description:**
     {job_description}
     """
-    ats_data = {
-        "matching_percentage": None,
-        "detected_skills": [],
-        "required_skills": [],
-        "suggested_improvements": []
-    }
 
     try:
-        client = genai.Client(api_key="AIzaSyB9cJ5PLtWVP4N5g_uuEgnyj7nDzW_Ecfo")
+        client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
         response = client.models.generate_content(
             model="gemini-2.0-flash",
             config={
@@ -113,6 +130,7 @@ def get_ats_score(job_description, resume_text):
             },
             contents=prompt,
         )
+
         response_data = response.text
         print(f"Printed: {response_data}")
 
