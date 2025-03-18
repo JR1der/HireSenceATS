@@ -41,4 +41,3 @@ urllib3==2.3.0
 websockets==14.2
 django-cors-headers==4.7.0
 python-dotenv==1.0.1
-dotenv==1.0.1
