@@ -1,0 +1,96 @@
+.signForm {
+    margin: 0 auto;
+    max-width: 1080px;
+    width: 100%;
+    padding: 80px 0 90px 0;
+    backdrop-filter: blur(50px);
+    border: 1px solid var(--Stroke-purple, #66608C);
+    border-radius: 60px;
+    position: fixed;
+    top: 170px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+
+    & .signForm__title {
+        color: var(--text-color-1, #F0ECFC);
+        font-size: 40px;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+
+    & .signForm__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & .signForm__field {
+            display: flex;
+            flex-direction: column;
+
+            & .signForm__label {
+                color: var(--text-color-1, #F0ECFC);
+                font-size: 16px;
+                font-weight: 300;
+                margin-bottom: 5px;
+            }
+
+            & .signForm__input {
+                color: var(--text-color-2, #8E89B7);
+                font-size: 16px;
+                font-weight: 300;
+                padding: 16px;
+                width: 360px;
+                line-height: normal;
+                border-radius: 12px;
+                border: 1px solid #66608C;
+                background: #3B3555;
+                margin-bottom: 15px;
+            }
+        }
+
+        & .signForm__button {
+            margin-top: 15px;
+        }
+
+        & .signForm__links {
+            margin: 10px 0 30px 0;
+
+            & .signForm__link {
+                color: var(--text-color-2, #8E89B7);
+                font-size: 12px;
+                font-weight: 300;
+                text-decoration-line: underline;
+                text-decoration-style: solid;
+            }
+
+            & .signForm__link-registration {
+                color: var(--text-color-1, #F0ECFC);
+                font-size: 12px;
+                font-weight: 300;
+                display: flex;
+                gap: 8px;
+
+                & .signForm__link_registration {
+                    color: var(--add-color, #4EFBAD);
+                    font-weight: 500;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    & .signForm__social {
+        text-align: center;
+
+        & .signForm__social-text {
+            color: var(--text-color-1, #F0ECFC);
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 15px;
+        }
+    }
+}

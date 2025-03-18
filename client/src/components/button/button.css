@@ -1,0 +1,50 @@
+.btn {
+    color: var(--add-color, #4EFBAD);
+    width: 120px;
+    height: 45px;
+    border-radius: 12px;
+    border: 1px solid var(--add-color, #4EFBAD);
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_big {
+    width: 274px;
+    height: 56px;
+    background: var(--add-color, #4EFBAD);
+    color: #141522;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+}
+
+.btn_inactive {
+    width: 260px;
+    height: 56px;
+    background: #30615C;
+    padding: 15px 72px;
+    color: #131422;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+}
+
+.btn-social {
+    border-radius: 12px;
+    border: 1px solid var(--Stroke-purple, #66608C);
+    background: #3B3555;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+
+    & img {
+        height: 100%;
+        width: 100%;
+        display: block;
+    }
+}

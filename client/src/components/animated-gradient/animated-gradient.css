@@ -1,0 +1,10 @@
+.animated-gradient {
+    position: absolute;
+    bottom: -1100px;
+    left: -600px;
+    width: 1381px;
+    height: 1381px;
+    border-radius: 1381px;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(171, 125, 227, 0.30) 0%, rgba(20, 20, 34, 0.00) 100%);
+    z-index: 7;
+}

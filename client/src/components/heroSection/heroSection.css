@@ -1,0 +1,109 @@
+.hero {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 100vh;
+
+    @media screen and (max-width: 1024px) {
+        text-align: center;
+    }
+
+    & .hero__title {
+        color: var(--text-color-1, #F0ECFC);
+        font-size: 4.5rem;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 110%;
+        z-index: 2;
+    }
+
+    & .hero__brand {
+        color: var(--text-color-1, #F0ECFC);
+        font-weight: 700;
+    }
+
+    & .hero__subtitle {
+        color: var(--text-color-2);
+        font-size: 2.8rem;
+        font-weight: 200;
+        line-height: normal;
+        z-index: 2;
+    }
+
+    & .hero__cta {
+        position: absolute;
+        text-align: center;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+
+        & a {
+            color: var(--add-color, #4EFBAD);
+            font-size: 1.4rem;
+            font-style: normal;
+            font-weight: 300;
+            line-height: normal;
+            text-decoration: none;
+        }
+
+        & img {
+            margin-top: 8px;
+        }
+    }
+}
+
+.background-circles {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+
+
+    & span {
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid #323045;
+    }
+}
+
+.background-circle__1 {
+    height: 159px;
+    width: 159px;
+    background: linear-gradient(90deg, #272638 0%, #2A283D 100%);
+    z-index: 5;
+}
+
+.background-circle__2 {
+    width: 442.293px;
+    height: 442.293px;
+    background: linear-gradient(90deg, #202133 0%, #282540 100%);
+    z-index: 4;
+}
+
+.background-circle__3 {
+    width: 787.395px;
+    height: 787.395px;
+    background: linear-gradient(270deg, #2B2548 0%, #1B1C2C 100%);
+    z-index: 3;
+}
+
+.background-circle__4 {
+    width: 1116.131px;
+    height: 1116.131px;
+    background: linear-gradient(270deg, #2C2648 0%, #191A27 100%);
+    z-index: 2;
+}
+
+.background-circle__5 {
+    width: 1530.189px;
+    height: 1530.189px;
+    background: linear-gradient(270deg, #22213C 0%, #181825 100%);
+    z-index: 1;
+}

@@ -1,0 +1,51 @@
+.resumeToolkit {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+        justify-content: center;
+    }
+
+    & .resumeToolkit__content {
+        z-index: 7;
+        max-width: 550px;
+
+        & .resumeToolkit__title {
+            color: var(--text-color-1, #F0ECFC);
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 110%;
+
+            @media screen and (max-width: 768px) {
+                font-size: 40px;
+            }
+
+            @media screen and (max-width: 520px) {
+                font-size: 30px;
+            }
+        }
+
+        & .resumeToolkit__descr {
+            color: var(--text-color-1, #F0ECFC);
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: 140%;
+            margin: 30px 0;
+
+            @media screen and (max-width: 768px) {
+                font-size: 20px;
+            }
+
+            @media screen and (max-width: 520px) {
+                font-size: 18px;
+                margin: 20px 0;
+            }
+        }
+    }
+}
+
+.resumeToolkit_right {
+    justify-content: end;
+}
